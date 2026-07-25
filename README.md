@@ -18,7 +18,7 @@
 
 Dự án này là một ứng dụng giả lập (mô phỏng) mạng lưới Blockchain phân tán viết bằng ngôn ngữ C++. Phiên bản nâng cấp này tích hợp cơ chế bảo mật ví điện tử bất đối xứng bằng thuật toán RSA (thông qua thư viện Crypto++) và cơ chế đồng thuận Proof of Work (PoW) dựa trên hàm băm mật mã học SHA-256
 
-![Blockchain demo](docs/blockchain-demo.gif)
+![Blockchain demo](docs/miningblock-demo.gif)
 
 ## Tổng quan kiến trúc & Quy trình vận hành
 Hệ thống hoạt động như một chu trình khép kín bao gồm 4 giai đoạn chính từ lúc khởi tạo người dùng cho đến khi khối được đóng vào chuỗi:
