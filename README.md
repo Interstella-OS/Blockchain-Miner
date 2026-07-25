@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/trgchinhh/blockchain-cpp">
+  <a href="https://github.com/trgchinhh/miningblock-cpp">
     <img src="https://img.shields.io/badge/Language-C%2B%2B-blue.svg" alt="Language"/>
   </a>
   <a href="LICENSE">
@@ -14,7 +14,7 @@
   </a>
 </p>
 
-## Demo blockchain C++ (Nâng cấp RSA)
+## Mining block C++ (Nâng cấp RSA)
 
 Dự án này là một ứng dụng giả lập (mô phỏng) mạng lưới Blockchain phân tán viết bằng ngôn ngữ C++. Phiên bản nâng cấp này tích hợp cơ chế bảo mật ví điện tử bất đối xứng bằng thuật toán RSA (thông qua thư viện Crypto++) và cơ chế đồng thuận Proof of Work (PoW) dựa trên hàm băm mật mã học SHA-256
 
@@ -83,8 +83,8 @@ pacman -S mingw-w64-x86_64-cryptopp
 
 ### Biên dịch và khởi chạy 
 ```bash
-git clone https://github.com/trgchinhh/blockchain-cpp.git
-cd blockchain-cpp
+git clone https://github.com/trgchinhh/miningblock-cpp.git
+cd miningblock-cpp
 g++ build.cpp -o .\build.exe
 .\build.exe
 ```
