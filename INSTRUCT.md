@@ -1,6 +1,6 @@
-# Core-Blockchain
+# Blockchain Miner
 
-Demo Core Blockchain C++ sử dụng **Crypto++**, kết hợp **SHA-256**, **Proof of Work (PoW)**, **RSA Digital Signature** và mạng **P2P** cho phép nhiều Node cùng tham gia đào.
+Demo Blockchain Miner C++ sử dụng **Crypto++**, kết hợp **SHA-256**, **Proof of Work (PoW)**, **RSA Digital Signature** và mạng **P2P** cho phép nhiều Node cùng tham gia đào.
 
 - **Ngôn ngữ:** C++
 - **Hoàn thành:** 26/07/2026
