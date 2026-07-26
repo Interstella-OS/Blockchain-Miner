@@ -1,6 +1,7 @@
 <p align="center">
   <img height="120" src="img/logo.png"/>
 </p>
+<br><br>
 
 <p align="center">
   <a href="https://github.com/trgchinhh/blockchain-cpp">
