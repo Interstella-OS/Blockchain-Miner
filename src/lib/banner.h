@@ -4,8 +4,8 @@
 using namespace std;
 
 const string banner = R"(╔══════════════════════════════════╗
-║         Block Mining C++         ║
-║  C++ block mining simulation     ║
+║       Core Blockchain C++        ║
+║  RSA - P2P - Mining - Logging    ║
 ║  Version: 0.0.1                  ║
 ║  Author : Truong Chinh           ║
 ║  Github : Github.com/trgchinhh   ║
