@@ -202,6 +202,7 @@ Nhập port của Node muốn kết nối (ví dụ: 3000): 5500
 
 ## Tác giả
 **Nguyễn Trường Chinh (NTC++)**<br>
+**Ủng hộ:** [Nếu bạn thấy hữu ích hãy ủng hộ mình](https://github.com/sponsors/trgchinhh)<br>
 **GitHub:** [https://github.com/trgchinhh](https://github.com/trgchinhh)
 
 ---
