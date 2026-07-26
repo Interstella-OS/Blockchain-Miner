@@ -14,7 +14,7 @@
   </a>
 </p>
 
-## Core Blockchain
+## Blockchain Miner
 
 Dự án này là một ứng dụng giả lập (mô phỏng) mạng lưới Blockchain phân tán viết bằng ngôn ngữ C++. Phiên bản này tập trung tích hợp những cơ chế cốt lõi của 1 blockchain như cơ chế bảo mật mã hóa bất đối xứng bằng thuật toán RSA (thông qua thư viện Crypto++), cơ chế đồng thuận Proof of Work dựa trên hàm băm mật mã học SHA-256, mạng ngang hàng (P2P) (thông qua thư viện Winsocket) cho phép nhiều node cùng tham gia đào và đồng bộ chuỗi theo thời gian thực và ghi Log hệ thống (thông qua thư viện MiniLog).
 
@@ -173,8 +173,8 @@ pacman -S mingw-w64-x86_64-cryptopp
 
 ### Biên dịch và khởi chạy
 ```bash
-git clone https://github.com/trgchinhh/Core-Blockchain.git
-cd Core-Blockchain
+git clone https://github.com/trgchinhh/Blockchain-Miner.git
+cd Blockchain-Miner
 g++ ./build.cpp -o ./build.exe 
 ./build.exe
 ```
