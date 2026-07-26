@@ -209,6 +209,9 @@ Sau khi nhập như trên sẽ tạo ra 1 mạng lưới P2P gồm 3 Node nối 
 
 ---
 
+**Hạn chế hiện tại**
+- Chưa xử lý xung đột nhánh, khi có 2 node đào được block cùng lúc ở 2 Node và cùng thời phát tán thì mạng sẽ bị phân nhánh.
+
 **Lưu ý về tính thực tiễn**
 - Đây là phiên bản demo nhỏ giúp hiện thực hóa các khái niệm lý thuyết cốt lõi của Blockchain (Cấu trúc chuỗi, RSA, SHA-256, mạng P2P) bằng ngôn ngữ C++.
 - Trên thực tế, các kiến trúc Blockchain thật sự sở hữu độ phức tạp lớn hơn nhiều, với nhiều cơ chế siêu phức tạp và những thuật toán chuyên sâu.
