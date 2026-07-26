@@ -204,6 +204,7 @@ Nhập port của Node muốn kết nối (ví dụ: 3000): 5500
 ```
 
 Sau khi nhập như trên sẽ tạo ra 1 mạng lưới P2P gồm 3 Node nối mới nhau 
+
 ![Blockchain demo](docs/blockchain-p2p.png)
 
 ---
