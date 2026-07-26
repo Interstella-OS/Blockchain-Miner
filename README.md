@@ -182,11 +182,29 @@ g++ ./build.cpp -o ./build.exe
 ### Chạy thử mạng P2P nhiều Node (Local)
 Mở nhiều terminal riêng biệt, mỗi terminal chạy 1 Node với port khác nhau (ví dụ `3000`, `5500`, `8080`), khi được hỏi có muốn kết nối Node khác, chọn `y` và nhập port của Node đã chạy trước đó để tham gia cùng mạng:
 
+Port 1
 ```bash
 Nhập port chạy Node này (ví dụ: 3000): 3000
 Bạn có muốn kết nối tới Node khác không? (y/n): y
+Nhập port của Node muốn kết nối (ví dụ: 3000): 8080
+```
+
+Port 2
+```bash
+Nhập port chạy Node này (ví dụ: 3000): 5500
+Bạn có muốn kết nối tới Node khác không? (y/n): y
+Nhập port của Node muốn kết nối (ví dụ: 3000): 3000
+```
+
+Port 3
+```bash
+Nhập port chạy Node này (ví dụ: 3000): 8080
+Bạn có muốn kết nối tới Node khác không? (y/n): y
 Nhập port của Node muốn kết nối (ví dụ: 3000): 5500
 ```
+
+Sau khi nhập như trên sẽ tạo ra 1 mạng lưới P2P gồm 3 Node nối mới nhau 
+![Blockchain demo](docs/blockchain-p2p.png)
 
 ---
 
