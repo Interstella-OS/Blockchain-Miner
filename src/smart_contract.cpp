@@ -1,5 +1,4 @@
 #include "lib//smart_contract.h"
-#include "lib/header.h"
 
 void SmartContract::resign_transaction(json& transaction) {
     string send_name = transaction["Send name"];
@@ -27,7 +26,7 @@ json SmartContract::attach_timelock(json transaction, string unlock_time) {
     resign_transaction(transaction); 
     Log_smartcontract.info(
         "Đã khóa giao dịch thời gian\n", transaction.dump(4),
-        "\nHạn lúc:", unlock_time, "\n"
+        "\nHạn lúc:", unlock_time
     );
     return transaction;
 }
@@ -41,7 +40,7 @@ json SmartContract::attach_escrow(json transaction, string arbiter_name) {
     resign_transaction(transaction); 
     Log_smartcontract.info(
         "Đã khóa giao dịch ký quỹ\n", transaction.dump(4),
-        "\nKhóa bởi: ", arbiter_name, "\n" 
+        "\nKhóa bởi: ", arbiter_name
     );
     return transaction;
 }
@@ -68,7 +67,7 @@ bool SmartContract::approve_escrow(json& transaction, string arbiter_name) {
     resign_transaction(transaction);
     Log_smartcontract.success(
         "Đã duyệt hợp đồng ký quỹ, mã giao dịch: ", transaction["Transaction code"],
-        " | Người duyệt: ", arbiter_name
+        "\nNgười duyệt: ", arbiter_name
     );
     return true;
 }
