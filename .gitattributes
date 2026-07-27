@@ -9,3 +9,12 @@
 *.hpp linguist-language=C++
 *.hh linguist-language=C++
 *.hxx linguist-language=C++
+
+* text=auto
+
+*.cpp text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.cc text eol=lf
+*.cxx text eol=lf
