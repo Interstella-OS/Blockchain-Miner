@@ -1,4 +1,12 @@
 *.exe
 bin/
-data/
+
+*.log
 log/
+
+*.json
+data/
+validblock/
+
+*.o
+obj/
