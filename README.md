@@ -271,6 +271,7 @@ Sau khi nhập như trên sẽ tạo ra 1 mạng lưới P2P gồm 3 Node nối 
 
 ## Tác giả
 **Nguyễn Trường Chinh (NTC++)**<br>
+**Ủng hộ:** [Nếu bạn thấy hữu ích hãy ủng hộ mình](https://github.com/sponsors/trgchinhh)<br>
 **GitHub:** [https://github.com/trgchinhh](https://github.com/trgchinhh)
 
 ---
