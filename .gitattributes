@@ -3,10 +3,10 @@
 *.h linguist-language=C
 
 # C++
-*.cpp linguist-language=C
+*.cpp linguist-language=C++
 *.cc linguist-language=C++
 *.cxx linguist-language=C++
-*.hpp linguist-language=C
+*.hpp linguist-language=C++
 *.hh linguist-language=C++
 *.hxx linguist-language=C++
 
