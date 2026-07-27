@@ -1,6 +1,6 @@
-# Blockchain Miner
+# Blockchain Demo C++
 
-Demo Blockchain Miner C++ sử dụng **Crypto++**, kết hợp **SHA-256**, **Proof of Work (PoW)**, **RSA Digital Signature** và mạng **P2P** cho phép nhiều Node cùng tham gia đào.
+Demo Blockchain C++ sử dụng **Crypto++**, kết hợp **SHA-256**, **Proof of Work (PoW)**, **RSA Digital Signature**, **Smart contract** và mạng **P2P** cho phép nhiều Node cùng tham gia đào.
 
 - **Ngôn ngữ:** C++
 - **Hoàn thành:** 26/07/2026
@@ -150,6 +150,82 @@ Previous Hash
 
 0000000000000000000000000000000000000000000000000000000000000000
 ```
+
+---
+
+# Smart Contract
+
+Ngoài các giao dịch thông thường, demo còn hỗ trợ hai loại **Smart Contract** đơn giản nhằm mô phỏng các giao dịch có điều kiện trước khi được đưa vào Blockchain.
+
+## Timelock (Khóa thời gian)
+
+Timelock cho phép giao dịch chỉ được phép đưa vào Block sau một thời điểm đã định trước.
+
+Ví dụ:
+
+```text
+Người gửi: Trường Chinh
+Người nhận: Tuấn Kiệt
+Số tiền: 100.000 VND
+Unlock Time: 12:52:00 - 27/07/2026
+```
+
+Trong thời gian chưa đến mốc mở khóa:
+
+- Giao dịch vẫn nằm trong mempool.
+- Miner sẽ bỏ qua giao dịch này khi tạo block.
+- Khi đủ thời gian, giao dịch sẽ tự động đủ điều kiện để được đào.
+
+Loại hợp đồng này mô phỏng việc chuyển tài sản theo thời gian, chẳng hạn như khóa tiền đến một ngày cụ thể mới được thực hiện.
+
+---
+
+## Escrow (Ký quỹ)
+
+Escrow yêu cầu một bên thứ ba (người ký quỹ) xác nhận trước khi giao dịch được phép đưa vào blockchain.
+
+Ví dụ:
+
+```text
+Người gửi: Trường Chinh
+Người nhận: Tuấn Kiệt
+Arbiter: Duy Minh
+Approved: false
+```
+
+Quy trình hoạt động:
+
+1. Người gửi tạo giao dịch kèm hợp đồng escrow.
+2. Giao dịch được đưa vào mempool nhưng chưa thể đào.
+3. Người ký quỹ xét duyệt giao dịch.
+4. Sau khi được phê duyệt (`approved = true`), giao dịch mới đủ điều kiện để miner đưa vào block.
+
+Khi một hợp đồng ký quỹ được duyệt, node thực hiện duyệt sẽ phát thông báo tới toàn mạng P2P để các node khác đồng bộ trạng thái mới, đảm bảo mọi node đều có cùng dữ liệu.
+
+---
+
+## Smart Contract trong quá trình đào
+
+Mỗi lần bắt đầu đào block, miner sẽ kiểm tra toàn bộ giao dịch đang nằm trong mempool.
+
+Chỉ các giao dịch đáp ứng đầy đủ điều kiện mới được đưa vào block:
+
+- Giao dịch thông thường → luôn hợp lệ.
+- Timelock → phải đến đúng thời gian mở khóa.
+- Escrow → phải được người ký quỹ phê duyệt.
+
+Các giao dịch chưa đủ điều kiện sẽ tiếp tục nằm trong mempool và được kiểm tra lại ở lần đào tiếp theo, không bị loại bỏ hay mất dữ liệu.
+
+---
+
+## Mục đích của Smart Contract
+
+Hai loại hợp đồng trên được xây dựng nhằm minh họa nguyên lý hoạt động của Smart contract trong blockchain:
+
+- Thực thi giao dịch theo điều kiện.
+- Không cần can thiệp thủ công sau khi giao dịch được tạo.
+- Các node đều xác minh cùng một điều kiện trước khi chấp nhận giao dịch.
+- Mô phỏng cách các blockchain hiện đại xử lý những giao dịch có ràng buộc.
 
 ---
 
