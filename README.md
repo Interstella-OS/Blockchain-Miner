@@ -1,7 +1,6 @@
 <p align="center">
-  <img height="120" src="img/logo.png"/>
+  <img height="100" src="img/logo.png"/>
 </p>
-<br><br>
 
 <p align="center">
   <a href="https://github.com/trgchinhh/blockchain-cpp">
@@ -15,9 +14,9 @@
   </a>
 </p>
 
-## Blockchain Miner
+## Mining block C++ (Nâng cấp RSA + P2P)
 
-Dự án này là một ứng dụng giả lập (mô phỏng) mạng lưới Blockchain phân tán viết bằng ngôn ngữ C++. Phiên bản này tập trung tích hợp những cơ chế cốt lõi của 1 blockchain như cơ chế bảo mật mã hóa bất đối xứng bằng thuật toán RSA (thông qua thư viện Crypto++), cơ chế đồng thuận Proof of Work dựa trên hàm băm mật mã học SHA-256, mạng ngang hàng (P2P) (thông qua thư viện Winsocket) cho phép nhiều node cùng tham gia đào và đồng bộ chuỗi theo thời gian thực và ghi Log hệ thống (thông qua thư viện MiniLog).
+Dự án này là một ứng dụng giả lập (mô phỏng) mạng lưới Blockchain phân tán viết bằng ngôn ngữ C++. Phiên bản nâng cấp này tích hợp cơ chế bảo mật mã hóa bất đối xứng bằng thuật toán RSA (thông qua thư viện Crypto++), cơ chế đồng thuận Proof of Work dựa trên hàm băm mật mã học SHA-256, mạng ngang hàng (P2P) (thông qua thư viện Winsocket) cho phép nhiều node cùng tham gia đào và đồng bộ chuỗi theo thời gian thực, hỗ trợ hợp đồng thông minh (smart contract) đơn giản (timelock và escrow) để mô phỏng giao dịch có điều kiện, và ghi Log hệ thống (thông qua thư viện MiniLog).
 
 ![Blockchain demo](docs/blockchain-miner.gif)
 
@@ -45,6 +44,48 @@ Khi 1 node bắt đầu đào 1 khối, nó sẽ phát yêu cầu cho toàn mạ
 | **7** | Đồng bộ block | Node thắng gửi block vừa đào (kèm nonce, hash, giờ đào) cho cả mạng. Các node còn lại nhận được thì tự băm lại kiểm tra rồi mới thêm vào chain của mình |
 | **8** | Lưu lại | Mỗi lần có block mới hợp lệ thì lưu thêm vào file `valid_blocks.json` để coi lại sau này. |
 
+## Smart Contract
+
+Ngoài giao dịch thường (gửi thẳng, không điều kiện), hệ thống hỗ trợ gắn thêm 2 loại hợp đồng đơn giản vào giao dịch trước khi đào:
+
+| Loại | Điều kiện để được đào | Ví dụ thực tế tương tự |
+| :--- | :--- | :--- |
+| **Timelock (Khóa thời gian)** | Chỉ được đào sau 1 mốc thời gian định trước | Chuyển tiền nhưng khóa tới 1 ngày sau mới nhận được |
+| **Escrow (Ký quỹ)** | Chỉ được đào khi 1 người ký quỹ chỉ định đứng ra duyệt | Sàn thương mại điện tử giữ tiền tới khi người mua xác nhận nhận hàng |
+
+Giao dịch có gắn hợp đồng sẽ không được đưa vào block cho tới khi đủ điều kiện, hệ thống tự lọc mempool mỗi lần đào, giao dịch nào chưa đủ điều kiện sẽ tiếp tục nằm chờ, không bị mất.
+
+Khi 1 hợp đồng ký quỹ được duyệt, node duyệt sẽ gửi tin nhắn cho toàn mạng để đồng bộ trạng thái mới, tránh tình trạng các node khác vẫn thấy giao dịch là chưa duyệt.
+
+Ví dụ dữ liệu giao dịch có gắn Timelock:
+```json
+{
+    "Send name": "Truong Chinh",
+    "Receive name": "Tuan Kiet",
+    "Amount": 5820326.471,
+    "contract": {
+        "type": "timelock",
+        "unlock_time": "12:52:00 - 27/07/2026"
+    },
+    "Signature": "..."
+}
+```
+
+Ví dụ dữ liệu giao dịch có gắn Escrow:
+```json
+{
+    "Send name": "Truong Chinh",
+    "Receive name": "Tuan Kiet",
+    "Amount": 5820326.471,
+    "contract": {
+        "type": "escrow",
+        "arbiter": "Duy Minh",
+        "approved": false
+    },
+    "Signature": "..."
+}
+```
+
 ## Menu chính khi chạy chương trình
 
 Sau khi khởi tạo ví và kết nối mạng P2P (nếu có), chương trình hiển thị menu tương tác:
@@ -54,7 +95,10 @@ Sau khi khởi tạo ví và kết nối mạng P2P (nếu có), chương trình
 [02] Kiểm tra hàng chờ
 [03] Bắt đầu đào block
 [04] Xem lịch sử chuỗi
-[05] Thoát
+[05] Tạo hợp đồng thời gian
+[06] Tạo hợp đồng ký quỹ
+[07] Duyệt hợp đồng ký quỹ
+[08] Thoát
 ```
 
 | Lựa chọn | Chức năng |
@@ -63,7 +107,10 @@ Sau khi khởi tạo ví và kết nối mạng P2P (nếu có), chương trình
 | **2** | Xem chi tiết các giao dịch hiện đang nằm trong hàng chờ |
 | **3** | Gửi yêu cầu đào cho toàn mạng, tự tham gia đua đào cùng lúc với các Node khác |
 | **4** | Xem lịch sử toàn bộ khối trong chuỗi |
-| **5** | Dừng server P2P và thoát chương trình |
+| **5** | Tạo 1 giao dịch gắn hợp đồng Timelock, chỉ được đào sau mốc thời gian nhập vào |
+| **6** | Tạo 1 giao dịch gắn hợp đồng Escrow, cần người ký quỹ xét duyệt mới được đào |
+| **7** | Nhập tên người ký quỹ, duyệt các hợp đồng Escrow đang chờ xử lý trong hàng chờ |
+| **8** | Dừng server P2P và thoát chương trình |
 
 ## Các tính năng nâng cấp nổi bật
 
@@ -74,6 +121,7 @@ Sau khi khởi tạo ví và kết nối mạng P2P (nếu có), chương trình
 * **Bảo mật ví điện tử (RSA Keypair):** Tự động sinh ngẫu nhiên cặp khóa Private Key và Public Key cho toàn bộ user, quản lý lưu trữ an toàn trong tệp Json.
 * **Chữ ký số giao dịch (RSA Signature):** Người gửi bắt buộc phải ký vào gói dữ liệu giao dịch bằng Private Key. Hệ thống sử dụng Public Key để xác thực, chống gian lận dữ liệu và mạo danh ví người khác.
 * **Lưu trữ lịch sử khối hợp lệ:** Mỗi block được xác thực thành công sẽ được ghi lại đầy đủ (id, hash, nonce, thời gian đào) vào file Json riêng, phục vụ tra cứu.
+* **Smart Contract mini (Timelock & Escrow):** Giao dịch có thể gắn thêm điều kiện trước khi được đào, khóa theo thời gian (Timelock) hoặc chờ người ký quỹ duyệt (Escrow). Hệ thống tự lọc mempool khi đào, chỉ đưa vào block những giao dịch đã đủ điều kiện.
 * **Ghi log bằng MiniLog:** Toàn bộ quá trình từ lúc bắt đầu đến kết thúc chương trình (đào block, nhận/gửi P2P, lỗi xác thực...) đều được ghi lại vào file log riêng thông qua thư viện `MiniLog` tự viết, phân loại theo từng cấp độ (info, success, warning, error), tiện theo dõi để phân tích mà không cần in ra terminal.
 
 ---
@@ -158,6 +206,7 @@ Sau khi khởi tạo ví và kết nối mạng P2P (nếu có), chương trình
 | `log/p2p.log` | Log kết nối, gửi/nhận message giữa các Node trong mạng |
 | `log/transaction.log` | Log tạo giao dịch, ký và xác thực chữ ký |
 | `log/user.log` | Log liên quan tới ví người dùng: tạo khóa, kiểm tra khóa |
+| `log/smart_contract.log` | Log liên quan tới hợp đồng: tạo Timelock/Escrow |
 
 ---
 
@@ -210,19 +259,18 @@ Sau khi nhập như trên sẽ tạo ra 1 mạng lưới P2P gồm 3 Node nối 
 
 ---
 
-**Hạn chế hiện tại**
-- Chưa xử lý xung đột nhánh, khi có 2 node đào được block cùng lúc ở 2 Node và cùng thời phát tán thì mạng sẽ bị phân nhánh.
-
 **Lưu ý về tính thực tiễn**
-- Đây là phiên bản demo nhỏ giúp hiện thực hóa các khái niệm lý thuyết cốt lõi của Blockchain (Cấu trúc chuỗi, RSA, SHA-256, mạng P2P) bằng ngôn ngữ C++.
-- Trên thực tế, các kiến trúc Blockchain thật sự sở hữu độ phức tạp lớn hơn nhiều, với nhiều cơ chế siêu phức tạp và những thuật toán chuyên sâu.
+
+- Đây là phiên bản demo nhỏ giúp hiện thực hóa các khái niệm lý thuyết cốt lõi của Blockchain (Cấu trúc chuỗi, RSA, SHA-256, mạng P2P, Smart Contract) bằng ngôn ngữ C++.
+
+- Trên thực tế, các kiến trúc Blockchain thật sự sở hữu độ phức tạp lớn hơn rất nhiều so với dự án này, với nhiều cơ chế siêu phức tạp và những thuật toán chuyên sâu.
+
 > Dự án được xây dựng với mục đích nghiên cứu, học tập nền tảng và không khuyến khích áp dụng trực tiếp vào các hệ thống thương mại thực tế.
 
 ---
 
 ## Tác giả
 **Nguyễn Trường Chinh (NTC++)**<br>
-**Ủng hộ:** [Nếu bạn thấy hữu ích hãy ủng hộ mình](https://github.com/sponsors/trgchinhh)<br>
 **GitHub:** [https://github.com/trgchinhh](https://github.com/trgchinhh)
 
 ---
